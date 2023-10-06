@@ -1,0 +1,125 @@
+<prefs>
+	<classes>
+		<class name="ACC" state="0">
+			<minreadingage>100</minreadingage>
+			<category name="AccActRules" state="5" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccAria" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccCompatJAWS" state="2" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccCompatNVDA" state="2" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccCompatVoiceOver" state="2" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccCrawl" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccMatterhorn" state="2" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccSection508" state="5" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccSection508-2017" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccWcag1" state="5" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccWcag2" state="2" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="AccWcag2.1" state="0" maxpriority="2" version-from="0" version-to="100000" />
+		</class>
+		<class name="BUG" state="0">
+			<category name="BugAndroidMobile" state="0" maxpriority="6" version-from="100000" version-to="100000" />
+			<category name="BugBlackBerry" state="5" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="BugChrome" state="0" maxpriority="6" version-from="100000" version-to="100000" />
+			<category name="BugEdge" state="0" maxpriority="6" version-from="100000" version-to="100000" />
+			<category name="BugMicrosoft" state="2" maxpriority="6" version-from="100000" version-to="100000" />
+			<category name="BugMozilla" state="0" maxpriority="6" version-from="100000" version-to="100000" />
+			<category name="BugOpera" state="0" maxpriority="6" version-from="100000" version-to="100000" />
+			<category name="BugSafari" state="0" maxpriority="6" version-from="100000" version-to="100000" />
+			<category name="BugSafariMobile" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="BugTechCss" state="5" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="BugTechHtml" state="5" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="BugTechOther" state="5" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="BugTechScript" state="5" maxpriority="6" version-from="0" version-to="100000" />
+		</class>
+		<class name="ERR" state="0">
+			<category name="ErrConfig" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="ErrContent" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="ErrCrawlBlocked" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="ErrCustom" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="ErrHttp" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="ErrRfc" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="ErrScript" state="0" maxpriority="6" version-from="0" version-to="100000" />
+		</class>
+		<class name="SEC" state="5">
+			<category name="SecCSP" state="0" maxpriority="6" version-from="0" version-to="100000" />
+		</class>
+		<class name="SEO" state="0">
+			<keywords></keywords>
+			<category name="SeoGoogle" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="SeoGoogleGuide" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="SeoMattCutts" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="SeoMsn" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="SeoOther" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="SeoRobotsTxt" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="SeoYahoo" state="0" maxpriority="6" version-from="0" version-to="100000" />
+		</class>
+		<class name="USE" state="0">
+			<category name="UseReadability" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="UseUsGov" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="UseW3C" state="0" maxpriority="6" version-from="0" version-to="100000" />
+		</class>
+		<class name="W3C" state="0">
+			<category name="W3cCss" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="W3cDepr" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="W3cHtml" state="0" maxpriority="6" version-from="0" version-to="100000" />
+			<category name="W3cHtml5" state="0" maxpriority="6" version-from="0" version-to="100000" />
+		</class>
+	</classes>
+	<presets id="PresetBrowsers" currentpreset="">
+		<preset id="PresetBrowsersCommon">
+			<name>Common Browsers</name>
+		</preset>
+		<preset id="PresetBrowsersDesktop">
+			<name>Desktop Browsers</name>
+		</preset>
+		<preset id="PresetBrowsersMobile">
+			<name>Mobile Browsers</name>
+		</preset>
+	</presets>
+	<presets id="PresetsAccCompat" currentpreset="PresetAccCompatNone">
+		<preset id="PresetAccCompatCommon">
+			<name>Check screen reader support</name>
+		</preset>
+		<preset id="PresetAccCompatNone">
+			<name>Not checked</name>
+		</preset>
+	</presets>
+	<rules>
+		<rule ruleid="ErrSpellingError" state="0">
+			<options ignoreCapitalized="1" />
+			<language lang="" selected="false">No Spell Check</language>
+			<language lang="en-us" selected="true">English (US)</language>
+			<language lang="en-ca" selected="false">English (Canada)</language>
+			<language lang="en-gb" selected="false">English (UK)</language>
+			<language lang="en-au" selected="false">English (Australia)</language>
+			<language lang="fr" selected="false">Français</language>
+		</rule>
+		<rule ruleid="ErrPageWeight" state="0">
+			<max>0</max>
+		</rule>
+		<rule ruleid="ErrRequired" state="0">
+			<keywords></keywords>
+		</rule>
+		<rule ruleid="ErrKeyword" state="0">
+			<keywords></keywords>
+		</rule>
+	</rules>
+	<blocks></blocks>
+	<additionalDomains>allendev.silverchair.com</additionalDomains>
+	<useRobotsProtocol>0</useRobotsProtocol>
+	<maxIssueCount>20</maxIssueCount>
+	<maxLocationCount>5</maxLocationCount>
+	<maxExternalPageCount>5</maxExternalPageCount>
+	<useParamTags>0</useParamTags>
+	<parseJavaScript>1</parseJavaScript>
+	<visitSubDomains>1</visitSubDomains>
+	<autoLogin>0</autoLogin>
+	<domReadyDelay>0</domReadyDelay>
+	<pageDelay>100</pageDelay>
+	<pageTimeout>180000</pageTimeout>
+	<crawlDepth>2147483646</crawlDepth>
+	<userAgents>
+		<userAgent ua="0">Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko</userAgent>
+		<userAgent ua="1">SortSite/6.48.956.0</userAgent>
+		<userAgent ua="2" selected="">SilverchairSQA</userAgent>
+	</userAgents>
+</prefs>
