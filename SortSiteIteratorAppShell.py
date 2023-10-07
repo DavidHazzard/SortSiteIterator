@@ -1,7 +1,7 @@
 import os
-import subprocess
 import sys
 import shutil
+from SortSiteIterator import SortSiteRunner
 
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont
@@ -142,11 +142,11 @@ class SortSiteIteratorThread(QThread):
         self.configFile = configFile
 
     def run(self):
-        command = ['python', 'SortSiteIterator.py', self.sitesFile, self.configFile]
-        process = subprocess.Popen(command, stdout=subprocess.PIPE)
+        runner = SortSiteRunner(self.sitesFile, self.configFile)
+        process = runner.run()
 
         while True:
-            output = process.stdout.readline().decode()
+            output = process.sdout.readline().decode() 
             if output == '' and process.poll() is not None:
                 break
             if output:
