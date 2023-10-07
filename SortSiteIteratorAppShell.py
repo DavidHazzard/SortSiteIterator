@@ -1,7 +1,6 @@
 import os
-import sys
 import shutil
-from SortSiteIterator import SortSiteRunner
+from SortSiteIteratorRunner import SortSiteRunner
 
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont
@@ -159,8 +158,3 @@ class SortSiteIteratorThread(QThread):
         
         process.wait()
         self.progressUpdated.emit(100)
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = SortSiteIteratorAppShell()
-    sys.exit(app.exec_())
