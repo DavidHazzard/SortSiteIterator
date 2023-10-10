@@ -1,8 +1,7 @@
 import os
-import shutil
-from SortSiteIteratorRunner import SortSiteRunner
+from SortSiteIteratorThread import SortSiteIteratorThread
 
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 
@@ -64,7 +63,7 @@ class SortSiteIteratorAppShell(QMainWindow):
         self.progressBar.setMinimum(0)
         self.progressBar.setMaximum(100)
         self.progressBar.setValue(0)
-        self.progressBar.setStyleSheet('QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: white; width: 70%; content-align: center, padding: 10px; } QProgressBar::chunk { background-color: #0078d7; }')
+        self.progressBar.setStyleSheet('QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: white; width: 70%; padding: 10px; } QProgressBar::chunk { background-color: #0078d7; }')
         self.progressBar.move(0, 0)
         self.progressBar.setAlignment(Qt.AlignCenter)
         self.progressBar.setObjectName('progressBar')
@@ -104,7 +103,6 @@ class SortSiteIteratorAppShell(QMainWindow):
             QMainWindow {
                 font-size: 16px;
                 font-weight: bold;
-                content-align: center;
             }
             QPushButton {  
                 background-color: #0078d7;
@@ -131,7 +129,6 @@ class SortSiteIteratorAppShell(QMainWindow):
                 background-color: white;
                 width: 70%;
                 height: 200px;
-                content-align: center;
                 padding: 10px;
             }
             QLineEdit {
@@ -139,7 +136,6 @@ class SortSiteIteratorAppShell(QMainWindow):
                 border-radius: 5px;
                 background-color: white;
                 width: 70%;
-                content-align: center;
                 padding: 10px;
             }
             QLineEdit:disabled {
@@ -153,7 +149,6 @@ class SortSiteIteratorAppShell(QMainWindow):
                 border-radius: 5px;
                 background-color: white;
                 width: 70%;
-                content-align: center;
                 padding: 10px;
             }
             QProgressBar::chunk {
@@ -164,7 +159,6 @@ class SortSiteIteratorAppShell(QMainWindow):
                 border-radius: 5px;
                 background-color: white;
                 width: 30%;
-                content-align: center;
                 padding: 10px;
             }                            
         ''')
@@ -175,9 +169,6 @@ class SortSiteIteratorAppShell(QMainWindow):
         isCustomProgramLocation = not self.programInDefaultInstallLocationCheckBox.isChecked()
         self.programLocationWidget.setEnabled(isCustomProgramLocation)
         self.programLocationButtonWidget.setEnabled(isCustomProgramLocation)
-
-    def updateProgressBar(self, progress):
-        self.progressBar.setValue(int(progress))
 
     def createFileSelectObject(self, inputLabel, inputFieldName, tooltipText):
         inputLabelWidget = QLabel(f'{inputLabel} file:', self)
@@ -231,6 +222,7 @@ class SortSiteIteratorAppShell(QMainWindow):
         )
         self.thread.outputReceived.connect(self.handleOutputReceived)
         self.thread.progressUpdated.connect(self.updateProgressBar)
+        self.thread.cancelled.connect(self.cancelSortSite)
         self.thread.finished.connect(self.handleThreadFinished)
         self.thread.start()
 
@@ -238,31 +230,33 @@ class SortSiteIteratorAppShell(QMainWindow):
         not_exists_text = 'No file exists at the provided location. Please select a {type} file.'
 
         if self.sitesFieldWidget.text() == '':
-            self.statusLabel.setText('Please select a sites file.')
-            self.statusLabel.setStyleSheet('color: red')
+            self.styleStatusLabel('Please select a sites file.', 'red')
             return False
         elif self.sitesFieldWidget.text() != '' and not os.path.isfile(self.sitesFieldWidget.text()):
-            self.statusLabel.setText(not_exists_text.format(type='sites'))
-            self.statusLabel.setStyleSheet('color: red')
+            self.styleStatusLabel(not_exists_text.format(type='sites'), 'red')
             return False
         elif self.configFieldWidget.text() != '' and not os.path.isfile(self.configFieldWidget.text()):
-            self.statusLabel.setText(not_exists_text.format(type='config'))
-            self.statusLabel.setStyleSheet('color: red')
+            self.styleStatusLabel(not_exists_text.format(type='config'), 'red')
             return False
         elif self.programInDefaultInstallLocationCheckBox.isChecked() == False and self.programLocationWidget.text() == '':
-            self.statusLabel.setText('Please select a SortSiteCmd.exe executable')
-            self.statusLabel.setStyleSheet('color: red')
+            self.styleStatusLabel('Please select a SortSiteCmd.exe executable.', 'red')
             return False
         elif self.programInDefaultInstallLocationCheckBox.isChecked() == False and not os.path.exists(self.programLocationWidget.text()):
-            self.statusLabel.setText(not_exists_text.format(type='SortSiteCmd.exe executable'))
-            self.statusLabel.setStyleSheet('color: red')
+            self.styleStatusLabel(not_exists_text.format(type='SortSiteCmd.exe'), 'red')
             return False
         else:
-            self.statusLabel.setText('Ready')
-            self.statusLabel.setStyleSheet('color: black')
+            self.styleStatusLabel('Ready', 'black', False)
             return True
+        
+    def styleStatusLabel(self, text, color, isItalic=True):
+        font_style = 'italic' if isItalic else 'normal'
+        self.statusLabel.setText(text)
+        self.statusLabel.setStyleSheet(f'color: {color}; font-style: {font_style}')
 
     def handleOutputReceived(self, output):
+        if os.path.exists('log.txt') == False:
+            open('log.txt', 'w').close()
+
         logFile = open('log.txt', 'a')
         try:
             float(output.strip())
@@ -278,49 +272,11 @@ class SortSiteIteratorAppShell(QMainWindow):
         self.cancelButton.setEnabled(False)
         self.runButton.setEnabled(True)
 
+    def updateProgressBar(self, progress):
+        self.progressBar.setValue(int(progress))
+
     def cancelSortSite(self):
         self.thread.terminate()
         self.statusLabel.setText('Cancelled')
         self.cancelButton.setEnabled(False)
         self.runButton.setEnabled(True)
-
-class SortSiteIteratorThread(QThread):
-    outputReceived = pyqtSignal(str)
-    progressUpdated = pyqtSignal(float)
-    cancelled = pyqtSignal()
-
-    def __init__(self, sitesFile, configFile, obeyRobots: bool, isTrial: bool, programLocation: str, scope: str):
-        super().__init__()
-        self.sitesFile = sitesFile
-        self.configFile = configFile
-        self.obeyRobots = obeyRobots
-        self.isTrial = isTrial
-        self.programLocation = programLocation
-        self.scope = scope
-
-    def run(self):
-        runner = SortSiteRunner(
-            self.sitesFile, 
-            self.configFile, 
-            self.obeyRobots, 
-            self.isTrial, 
-            self.programLocation, 
-            self.scope
-        )
-        print(self.isTrial)
-        process = runner.run()
-
-        while True:
-            output = process.sdout.readline().decode() 
-            if output == '' and process.poll() is not None:
-                break
-            if output:
-                self.outputReceived.emit(output)
-                try:
-                    progress = float(output.strip())
-                    self.progressUpdated.emit(progress)
-                except ValueError:
-                    pass
-        
-        process.wait()
-        self.progressUpdated.emit(100)
