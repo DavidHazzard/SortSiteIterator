@@ -3,7 +3,7 @@
 Hello! This tool came out of a need to run multiple SortSite scans for separate domains iteratively. The goal was to save the time between a scan finishing, a user realizing it was done, exporting the necessary information and starting the next scan.
 
 The app takes up to two files:
-1. A sites file (syntax below)
+1. A sites file (see syntax in the attached sites.txt file)
 2. An .sset config file
 
 The app allows a user to 
