@@ -1,6 +1,5 @@
 import os
 from SortSiteIteratorThread import SortSiteIteratorThread
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
@@ -274,6 +273,7 @@ class SortSiteIteratorAppShell(QMainWindow):
 
     def updateProgressBar(self, progress):
         self.progressBar.setValue(int(progress))
+        self.activityPanel.clear()
 
     def cancelSortSite(self):
         self.thread.terminate()

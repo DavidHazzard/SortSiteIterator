@@ -1,8 +1,10 @@
+import os
 import subprocess
+import shutil
+import time
 from SiteInfo import SiteInfo
 from SortSiteSetup import SortSiteSetup
 from PyQt5.QtCore import QObject, pyqtSignal
-
 
 class SortSiteIteratorRunner(QObject):
     commandLineOutput = pyqtSignal(str)
@@ -25,7 +27,20 @@ class SortSiteIteratorRunner(QObject):
                         break
                     if output:
                         self.commandLineOutput.emit(output)
-                self.commandLineOutput.emit(f"Scan for {siteInfo.siteName} complete. \n The results can be found in {self.src.scan_directory} \n")
                 progress = progress + ((1 / len(self.src.sitesFile)) * 100)
                 self.commandLineOutput.emit(f"{progress}\n")
+                self.commandLineOutput.emit(f"Scan for {siteInfo.siteName} complete. \n The results can be found in {self.src.scan_directory} \n")
+                self.zip_scan(self.src.scan_directory)
         self.commandLineOutput.emit('Finished')
+    
+    def zip_scan(self, current_scan_directory: str):
+        current_scan_folder = os.path.dirname(current_scan_directory)
+        current_scan_parent = os.path.dirname(current_scan_folder)
+        current_zip_file = f'{current_scan_folder}.zip'
+        
+        if os.path.exists(current_scan_folder):
+            shutil.make_archive(current_scan_folder, 'zip', current_scan_parent)
+            time.sleep(1)
+        
+        if os.path.exists(current_scan_folder) and os.path.isdir(current_scan_folder) and os.path.exists(current_zip_file) and os.path.getsize(current_zip_file) > 0:
+            shutil.rmtree(current_scan_folder)
