@@ -1,0 +1,2 @@
+{ 'ALLEN': ['https://meridian.allenpress.com/avian-diseases', 'avian-diseases'] }
+{ 'WK': ['https://lwwhealthlibrary.com', 'health_library'] }
