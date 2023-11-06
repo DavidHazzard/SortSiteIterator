@@ -1,6 +1,7 @@
 from SortSiteSetup import SortSiteSetup
 from SortSiteIteratorRunner import SortSiteIteratorRunner
 from PyQt5.QtCore import QThread, pyqtSignal
+import zipfile
 
 class SortSiteIteratorThread(QThread):
     outputReceived = pyqtSignal(str)
